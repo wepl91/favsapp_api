@@ -20,4 +20,7 @@ class User < ApplicationRecord
 
   #encrypt password
   has_secure_password
+  has_many :user_skills 
+  has_and_belongs_to_many :skills
+  has_one :address
 end

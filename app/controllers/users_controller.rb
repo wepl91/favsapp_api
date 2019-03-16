@@ -1,7 +1,24 @@
 # app/controllers/users_controller.rb
 class UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[login register]
-   # POST /register
+   
+  # GET /users
+    def index
+      @users = User.all
+    
+      render json: @users
+    end
+  
+    # GET /users/:id
+    def show
+      @user = User.find(params[:id])
+      
+      binding.pry
+      
+      render json: @user
+    end
+   
+    # POST /register
     def register
       @user = User.create(user_params)
      if @user.save

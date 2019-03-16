@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190316175027) do
+ActiveRecord::Schema.define(version: 20190316221944) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "country"
@@ -19,12 +19,19 @@ ActiveRecord::Schema.define(version: 20190316175027) do
     t.integer "street_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "lat"
+    t.string "lon"
+    t.string "city"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "skill_id"
+    t.index ["skill_id"], name: "index_categories_on_skill_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -32,10 +39,25 @@ ActiveRecord::Schema.define(version: 20190316175027) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id"
+    t.string "comment"
+    t.index ["category_id"], name: "index_services_on_category_id"
   end
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "skills_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "skill_id", null: false
+    t.index ["skill_id", "user_id"], name: "index_skills_users_on_skill_id_and_user_id"
+    t.index ["user_id", "skill_id"], name: "index_skills_users_on_user_id_and_skill_id"
+  end
+
+  create_table "user_skills", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -9,4 +9,7 @@
 #
 
 class Skill < ApplicationRecord
-end
+  has_many :categories
+  has_many :user_skills
+  has_and_belongs_to_many :users
+end 
