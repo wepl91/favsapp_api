@@ -5,12 +5,12 @@ class ServicesController < ApplicationController
   def index
     @services = Service.all
 
-    render json: @services
+    render json: ServiceSerializer.new(@services)
   end
 
   # GET /services/1
   def show
-    render json: @service
+    render json: ServiceSerializer.new(@service)
   end
 
   # POST /services

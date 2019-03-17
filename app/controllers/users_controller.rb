@@ -12,9 +12,6 @@ class UsersController < ApplicationController
     # GET /users/:id
     def show
       @user = User.find(params[:id])
-      
-      binding.pry
-      
       render json: @user
     end
    
@@ -50,11 +47,14 @@ class UsersController < ApplicationController
 
     def authenticate(email, password)
       command = AuthenticateUser.call(email, password)
-  
       if command.success?
+        binding.pry
+        logged_user = User.find_by(email: email)
         render json: {
           access_token: command.result,
-          message: 'Login Successful'
+          message: 'Login Successful',
+          user: logged_user,
+          services: logged_user.services_by_skill,
         }
       else
         render json: { error: command.errors }, status: :unauthorized

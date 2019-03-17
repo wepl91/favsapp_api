@@ -21,6 +21,21 @@ class User < ApplicationRecord
   #encrypt password
   has_secure_password
   has_many :user_skills 
+  has_many :services
   has_and_belongs_to_many :skills
   has_one :address
+
+  def services_by_skill
+    binding.pry
+    results = Hash.new;
+    self.services.each do |service|
+      unless results.keys.include?(service.category.skill.name)
+        results[service.category.skill.name] = [service] 
+      end
+      unless results[service.category.skill.name].include?(service) 
+        results[service.category.skill.name] << service
+      end
+    end
+    results
+  end
 end

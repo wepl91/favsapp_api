@@ -28,9 +28,6 @@ class Address < ApplicationRecord
     if coords      
       self.lon = coords.lng
       self.lat = coords.lat
-      
-      binding.pry
-      
     end
   end
 end
