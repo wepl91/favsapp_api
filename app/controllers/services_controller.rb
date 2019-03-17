@@ -3,7 +3,7 @@ class ServicesController < ApplicationController
 
   # GET /services
   def index
-    @services = Service.all
+    @services = Service.where.not(user_id: params[:except_user])
 
     render json: ServiceSerializer.new(@services, { fields: { service: [:skill_name, :user_name, :user_id, :category_name, :price, :description, :comment] } })
   end
@@ -51,6 +51,7 @@ class ServicesController < ApplicationController
         :price,
         :category_id,
         :user_id,
+        :except_user
         )
     end
 end

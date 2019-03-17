@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :notifications
   resources :user_skills
   resources :addresses
   resources :services

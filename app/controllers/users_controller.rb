@@ -19,8 +19,7 @@ class UsersController < ApplicationController
     def register
       @user = User.create(user_params)
      if @user.save
-      response = { message: 'User created successfully'}
-      render json: response, status: :created 
+      render status: :ok 
      else
       render json: @user.errors, status: :bad
      end 

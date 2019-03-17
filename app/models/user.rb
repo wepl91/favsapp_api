@@ -15,13 +15,14 @@
 
 class User < ApplicationRecord
   #Validations
-  validates_presence_of :name, :email, :password_digest
+  validates_presence_of :email, :password_digest
   validates :email, uniqueness: true
 
   #encrypt password
   has_secure_password
   has_many :user_skills 
   has_many :services
+  has_many :notifications
   has_and_belongs_to_many :skills
   has_one :address
 
