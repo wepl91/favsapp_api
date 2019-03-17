@@ -5,12 +5,12 @@ class ServicesController < ApplicationController
   def index
     @services = Service.all
 
-    render json: ServiceSerializer.new(@services)
+    render json: ServiceSerializer.new(@services, { fields: { service: [:skill_name, :user_name, :user_id, :category_name, :price, :description, :comment] } })
   end
 
   # GET /services/1
   def show
-    render json: ServiceSerializer.new(@service)
+    render json: ServiceSerializer.new(@service, { fields: { service: [:skill, :user, :category, :price, :description, :comment] } })
   end
 
   # POST /services
@@ -50,6 +50,7 @@ class ServicesController < ApplicationController
         :description,
         :price,
         :category_id,
+        :user_id,
         )
     end
 end

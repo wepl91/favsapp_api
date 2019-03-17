@@ -26,7 +26,6 @@ class User < ApplicationRecord
   has_one :address
 
   def services_by_skill
-    binding.pry
     results = Hash.new;
     self.services.each do |service|
       unless results.keys.include?(service.category.skill.name)

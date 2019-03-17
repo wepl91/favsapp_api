@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     # GET /users/:id
     def show
       @user = User.find(params[:id])
-      render json: @user
+      render json: UserSerializer.new(@user)
     end
    
     # POST /register
@@ -48,12 +48,12 @@ class UsersController < ApplicationController
     def authenticate(email, password)
       command = AuthenticateUser.call(email, password)
       if command.success?
-        binding.pry
         logged_user = User.find_by(email: email)
         render json: {
           access_token: command.result,
           message: 'Login Successful',
           user: logged_user,
+          address: logged_user.address,
           services: logged_user.services_by_skill,
         }
       else
